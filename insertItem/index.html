@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert Item - SomuFinance</title>
+	<link rel="stylesheet" type="text/css" href="../jquery-ui-1.12.1/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/indexStyle.css">
+	<script src="../scripts/jquery-3.1.1.min.js"></script>
+	<script src="../scripts/jquery.validate.min.js"></script>
+	<script src="../jquery-ui-1.12.1/jquery-ui.min.js"></script>
+	<script src="../scripts/insertItem.js"></script>
+</head>
+<body>
+	<div id="addItemContainer">
+		<h1>Insert Item</h1>
+		<form id="data" method="post" action="addItem.php">
+	  		<div class="leftAligned">
+		  		<div class="inp">
+					<label for="shop">Shop : </label>
+					<input type="text" id="shop" name="shop" required>
+				</div> <br>
+				<div class="inp">
+					<label for="category">Category : </label>
+					<input type="text" id="category" name="category" required>
+				</div> <br>
+				<div class="inp">
+					<label for="item">Item : </label>
+					<input type="text" id="item" name="item" required>
+				</div> <br>
+				<div class="inp">
+					<label for="qnty">Quantity : </label>
+					<input type="text" id="qnty" name="qnty" required>
+				</div> <br>
+				<div class="inp">
+					<label for="unit">Unit : </label>
+					<input type="text" id="unit" name="unit" required>
+				</div> <br>
+				<div class="inp">
+					<label for="price_based_on">Price based on : </label>
+					<select name="price_based_on" id="price_based_on">
+						<option value="Kilos">Kilos</option>
+						<option value="Packet">Packet</option>
+						<option value="Bottle">Bottle</option>
+						<option value="Box">Box</option>
+						<option value="Piece">Piece</option>
+					</select>
+				</div> <br>
+				<div class="inp">
+					<label for="mrp">MRP (₹) : </label>
+					<input type="text" id="mrp" name="mrp" required>
+				</div> <br>
+				<div class="inp">
+					<label for="sellers_price">Seller's Price (₹) : </label>
+					<input type="text" id="sellers_price" name="sellers_price" required>
+				</div> <br>
+				<div class="inp">
+					<label for="last_updated_on">Last Updated on : </label>
+					<input type="date" id="last_updated_on" name="last_updated_on" required>
+				</div>
+	  		</div>
+			<div class="inp">
+				<input id="insertButton" type="button" name="insertButton" value="Insert">
+			</div>
+    	</form>
+    	<div id="message"></div>
+	</div>
+</body>
+</html>

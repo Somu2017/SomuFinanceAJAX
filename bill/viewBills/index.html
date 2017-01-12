@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SomuFinance - View all Bills</title>
+	<link rel="stylesheet" type="text/css" href="../../jquery-ui-1.12.1/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../css/indexStyle.css">
+	<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+	<link rel="icon" href="../../favicon.ico" type="image/x-icon">
+	<script src="../../scripts/jquery-3.1.1.min.js"></script>
+	<script src="../../scripts/jquery.validate.min.js"></script>
+	<script src="../../jquery-ui-1.12.1/jquery-ui.min.js"></script>
+	<script src="../../scripts/moment.js"></script>
+	<script src="../../scripts/viewBills.js"></script>
+</head>
+<body>
+	<div id="billAddContainer">
+		<h1>View Bills</h1>
+		<form id="viewBills" method="post" action="viewBills">
+			<input type="button" class="button" name="addExpense" id="addExpense" value="Add Expense" />
+			<input type="button" class="button" name="addBill" id="addBill" value="Add Bill" />
+			<input type="button" class="button" name="edit" id="edit" value="Edit" />
+			<input type="button" class="button" name="delete" value="Delete" />
+			<input type="button" class="button" name="search" value="Search" />
+			<input type="hidden" id="action" name="action">
+			<input type="hidden" id="shopName" name="shopName">
+			<table id="listDB">
+				<tr>
+					<th>Select</th>
+					<th>Bill No</th>
+					<th>Sl. No</th>
+					<th>Type</th>
+					<th>Expenditure Category</th>
+					<th>Shopping Date</th>
+					<th>Shop</th>
+					<th>Description</th>
+					<th>Total Amount</th>
+					<th>Paid</th>
+					<th>Due</th>
+					<th>Mode of Payment</th>
+					<th>Account</th>
+				</tr>
+			</table>
+		</form>
+		<div id="statement">
+			<form id="billAmount" method="post" action="dataLoader">
+				<div class="inp">
+					<label for="total_amount">Total Amount : ₹</label>
+					<input type="text" id="total_amount" name="total_amount" value="0.00" class="hiddenTextBox rightAligned" required readonly>
+				</div> <br>
+				<div class="inp">
+					<label for="paid">Paid : ₹</label>
+					<input type="text" id="paid" name="paid" value="0.00" class="hiddenTextBox rightAligned" required readonly="">
+				</div> <br>
+				<div class="inp">
+					<label for="due">Due : ₹</label>
+					<input type="text" id="due" name="due" value="0.00" class="hiddenTextBox rightAligned" required readonly>
+				</div> <br>
+			</form>
+		</div>
+	</div>
+	<div class="dialogBG">
+		<div id="deleteConfirmDialog" class="dialog">
+			<div class="closeDialog"></div>
+			<p>Sure you want to delete the selected Bills?</p>
+			<input type="button" id="confirmDelete" class="dialogButton" name="confirmDelete" value="Delete" />
+			<input type="button" class="dialogButton cancelButton" name="cancelDelete" value="Cancel" />
+		</div>
+	</div>
+	<div class="dialogBG">
+		<div id="searchDialog" class="dialog">
+			<div class="closeDialog"></div>
+			<form id="searchForm" name="searchForm" method="post" action="viewBills">
+				<h1>Search Criteria</h1>
+				<div class="inp">
+					<label for="group">Search in : </label>
+					<select id="field" name="field">
+						<option value="bill_no">Bill Number</option>
+						<option value="type">Type</option>
+						<option value="exp_category">Expenditure Category</option>
+						<option value="shopping_date">Shopping Date</option>
+						<option value="shop">Shop</option>
+						<option value="mode_of_payment">Mode of Payment</option>
+					</select>
+				</div> <br>
+				<div class="inp" id="criteriaDiv"></div>
+				<div class="inp">
+					<input type="button" id="search" class="dialogButton" name="search" value="Search" />
+					<input type="button" class="dialogButton cancelButton" name="cancelSearch" value="Cancel" />
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

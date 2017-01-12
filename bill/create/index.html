@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert Item - SomuFinance</title>
+	<link rel="stylesheet" type="text/css" href="../../css/indexStyle.css">
+	<link rel="stylesheet" type="text/css" href="../../jquery-ui-1.12.1/jquery-ui.min.css">
+	<script src="../../scripts/jquery-3.1.1.min.js"></script>
+	<script src="../../scripts/jquery.validate.min.js"></script>
+	<script src="../../jquery-ui-1.12.1/jquery-ui.min.js"></script>
+</head>
+<body>
+	<div id="createBill">
+		<h1>Create Bill</h1>
+		<form id="billPrerequisites" method="post" action="../index">
+	  		<div id="controlContainer">
+	  			<div class="inp">
+					<label for="category">Exp Category : </label>
+					<input type="text" id="category" name="category" required>
+				</div> <br>
+		  		<div class="inp">
+					<label for="shop">Shop : </label>
+					<input type="text" id="shop" name="shop" required>
+				</div> <br>
+				<div class="inp">
+					<label for="billDate">Billing Date : </label>
+					<input type="date" id="billDate" name="billDate" required>
+				</div> <br>
+				<div class="inp" id="mop">
+					<label for="modeOfPayment">Mode of Payment : </label>
+					<select id="modeOfPayment" name="modeOfPayment" required>
+						<option value="Cash">Cash</option>
+						<option value="Card">Card</option>
+						<option value="Online">Online</option>
+					</select>
+				</div>
+				<div class="inp" id="acc"></div>
+				<input type="hidden" id="action" value="createBill">
+	  		</div>
+			<div class="inp">
+				<input id="submitButton" type="Submit" name="submitButton" value="Create Bill">
+			</div>
+    	</form>
+    	<div id="message"></div>
+	</div>
+	<script>
+		$(document).ready(function(){
+
+			$account=null;
+			reload_date();
+			function reload_date()
+			{
+				$.get('../../insertItem/addItem.php?action=getDate', function(json) {
+					$('#billDate').attr('max', json.date);
+					$('#billDate').val(json.date);
+				},'json');
+			}
+
+			function reload_suggestions(arr,field,source)
+			{
+				var data="field="+field;
+				$.post(source, data, function(json) {
+					if(json.fieldArr.length>0)
+						$.each(json.fieldArr, function() 
+						{
+							arr.push(this[field]);
+						});
+				}, 'json');
+
+			}
+			var shopArr=[];
+			var expCatArr=[];
+			reload_suggestions(shopArr,'shop',"../../insertItem/insertAutocomplete.php");
+			reload_suggestions(expCatArr,'exp_category',"../viewBills/insertAutocomplete.php");
+			$("#shop").autocomplete({
+		      source: shopArr
+		    });
+		    $("#category").autocomplete({
+		      source: expCatArr
+		    });
+			
+			$("#modeOfPayment").change(function(event) {
+				
+				if($account!==null)
+				{
+					$label.remove();
+					$account.remove();
+				}
+
+				if($(this).val()=="Card"||$(this).val()=="Online")
+				{
+					$label = $('<label for="account">Account : </label>');
+					$label.css('min-width', '0px');
+					$account = $("<select>", {
+						id : "account",
+						name : "account",
+						required : true
+					});
+					$ac1 = $("<option>",{
+						value : "Joy_ESPL",
+						text : "Joydeb Sinha - Explanade Savings A/C"
+					}); $account.append($ac1);
+					$ac2 = $("<option>",{
+						value : "Joy_KON",
+						text : "Joydeb Sinha - Konnagar Pension A/C"
+					}); $account.append($ac2);
+					$ac3 = $("<option>",{
+						value : "Somu_ESPL",
+						text : "Somenath Sinha - Explanade Savings A/C"
+					}); $account.append($ac3);
+
+					$("#acc").append($label);
+					$("#acc").append($account);
+				}
+			});
+
+		});
+	</script>
+</body>
+</html>

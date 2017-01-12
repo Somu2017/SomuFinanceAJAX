@@ -1,0 +1,330 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	background-image: url("../images/indexBg7.jpg");
+	background-attachment: fixed;
+	font-family: verdana;
+	font-size: 14px;
+}
+
+input, select, textarea {
+    border:none;
+}
+
+input[type=text], input[type=date], input[type=password], #description {
+	width: 160px;
+}
+
+input[type=date], input[type=month] {
+	text-align: center;
+}
+
+h1 {
+	color: #fff;
+}
+
+#container, #billAddContainer {
+	padding: 50px;
+	margin: 50px;
+	text-align: center;
+}
+
+#login, #addItemContainer, #searchDialog, #createBill, #createExpense, #editItemContainer, #reloadBill {
+	width: 25%;
+	height: 15%;
+
+	position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+	padding: 10px;
+	background-color: rgba(255,170,107,0.8);
+	text-align: center;
+}
+
+#addItemContainer, #editItemContainer {
+	width: 384px;
+	height: 520px;
+	position: fixed;
+}
+
+#editItemContainer {
+	height: 650px;
+}
+
+#createBill {
+	height: 250px;
+	text-align: center;
+}
+
+#createExpense {
+	height: 430px;
+	text-align: center;
+}
+
+#reloadBill {
+	height: 200px;
+	text-align: center;
+}
+
+#login label, #addItemContainer label, #searchDialog label, #createBill label, #createExpense label, #searchBox label, #editItemContainer label, #billNoContainer label, #statement label {
+  text-align:right;
+  padding-right:10px;
+  display:inline-block;
+  min-width:150px;
+}
+
+.inp{
+	display: inline-block;
+	padding: 5px;
+}
+
+#login>form {
+	margin: 0px auto;
+	margin-top: 10px;
+}
+
+#addItemContainer>form {
+	margin-top: 10px;
+	padding-left: 25px;
+}
+
+#loginButton {
+	text-align: center;
+}
+
+#insertButton, #submitButton, .button, .dialogButton {
+	padding: 5px;
+}
+
+#message, #billMessage {
+	display: none;
+}
+
+.success {
+	color: green;
+}
+
+.failure {
+	color: red;
+}
+
+table, th, td {
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px;
+    text-align: center;    
+}
+
+.pri {
+	width: 100px;
+	text-align: right;
+}
+
+th {
+	background-color: #151515;
+	color: #6FAFE8;
+}
+
+.catHead {
+	background-color: #2a2a2a;
+	font-weight: bold;
+	color: #F0AC6E;
+}
+
+.subTotal {
+	background-color: #333333;
+	color: #FFCF73;
+}
+
+.total {
+	background-color: #222;
+	font-weight: bold;
+	color: ##66E366;
+}
+
+tr:nth-child(odd) {
+	background-color: #3f3f3f;
+	color: #88CC88;
+}
+
+tr:nth-child(even) {
+	background-color: #545454;
+	color: #88CC88;
+}
+
+#listDB {
+	margin: 0 auto;
+}
+
+.button, .dialogButton {
+	margin: 10px;
+}
+
+#deleteConfirmDialog, #insertMessage {
+	width: 250px;
+	text-align: center;
+	height: 100px;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+
+	padding: 30px;
+	background-color: #9bb2f7;
+}
+
+#deleteConfirmDialog>p {
+	padding: 10px;
+	padding-bottom: 20px;
+}
+
+.closeDialog {
+	background-image: url("../images/cross.png");
+	width: 16px;
+	height: 16px;
+	background-size: 16px 16px;
+	position: absolute;
+	opacity: 0.6;
+}
+
+#deleteConfirmDialog .closeDialog {
+	top: 5px;
+	left: 285px;
+}
+
+#addItemContainer .closeDialog {
+	top: 5px;
+	left: 383px;
+}
+
+#editItemContainer .closeDialog {
+	top: 5px;
+	left: 383px;
+}
+
+#searchDialog .closeDialog {
+	top: 5px;
+	left: 450px;
+}
+
+#insertMessage .closeDialog {
+	top: 5px;
+	left: 285px;
+}
+
+#searchDialog {
+	height: 20%;
+}
+
+.dialogBG {
+	background-color: rgba(0,0,0,0.75);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	display: none;
+}
+
+#container h1, #reloadBill h1, #searchForm h1 {
+	margin-bottom: 20px;
+}
+
+#controlContainer {
+	padding: 10px;
+}
+
+.rightBorder {
+	border-right: 2px solid black;
+}
+
+#createMessage, #searchBox, #statement {
+	background-color: #88CC88;
+	padding: 20px;
+	margin: 20px;
+	text-align: center;
+}
+
+#statement {
+	margin-top: 50px;
+}
+
+#searchBox {
+	background-color: #F0AC6E;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+#searchBox h1 {
+	color: #000;
+}
+
+hr {
+	border: 1px solid black;
+	margin: 5px;
+}
+
+.leftAligned {
+	text-align: left;
+}
+
+.rightAligned {
+	text-align: right;
+}
+
+.centerAligned, .centerAligned label {
+	display: inline-block;
+	text-align: center;
+}
+
+input[type=text].textStyle, input[type=text].qfStyle {
+	width: 50px;
+	background-color: rgba(0,0,0,0);
+	text-align: center;
+}
+
+input[type=text].hiddenTextBox {
+	width: 100px;
+	background-color: rgba(0,0,0,0);
+	text-align: right;
+}
+
+input[type=text].hiddenText {
+	background-color: rgba(0,0,0,0);
+}
+
+input[type=text].paid {
+	width: 100px;
+	text-align: right;
+}
+
+input[type=text].textStyle {
+	color: #88CC88;
+}
+
+input[type=text].rightAligned {
+	text-align: right;
+}
+
+#textAreaContainer *{
+	vertical-align: middle;
+}
+
+.desc {
+	width: 160px;
+	text-align: left;
+}

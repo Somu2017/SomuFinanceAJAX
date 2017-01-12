@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SomuFinance - Personal Finance Manager</title>
+	<link rel="stylesheet" type="text/css" href="../jquery-ui-1.12.1/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/indexStyle.css">
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon">
+	<script src="../scripts/jquery-3.1.1.min.js"></script>
+	<script src="../scripts/jquery.validate.min.js"></script>
+	<script src="../jquery-ui-1.12.1/jquery-ui.min.js"></script>
+	<script src="../scripts/viewDB.js"></script>
+</head>
+<body>
+	<form id="list" method="post" action="viewData.php">
+		<div id="container">
+			<h1>View Database</h1>
+			<select name="category_selector" id="category_selector">
+				<option value="All" selected>All</option>
+			</select>
+			<input type="button" class="button" name="edit" id="edit" value="Edit" />
+			<input type="button" class="button" name="delete" value="Delete" />
+			<input type="button" id="showSearch" class="button" name="search" value="Search" />
+			<input type="hidden" id="action" name="action">
+			<table id="listDB">
+				<tr>
+					<th>Select</th>
+					<th>ID</th>
+					<th>Category ID</th>
+					<th>Shop</th>
+					<th>Item</th>
+					<th>Quantity</th>
+					<th>Unit</th>
+					<th>Price Based On</th>
+					<th>MRP</th>
+					<th>Seller's Price</th>
+					<th>Last Updated On</th>
+				</tr>
+			</table>
+		</div>
+	</form>
+	<div class="dialogBG">
+		<div id="deleteConfirmDialog" class="dialog">
+			<div class="closeDialog"></div>
+			<p>Sure you want to delete the selected Data?</p>
+			<input type="button" id="confirmDelete" class="dialogButton" name="confirmDelete" value="Delete" />
+			<input type="button" class="dialogButton cancelButton" name="cancelDelete" value="Cancel" />
+		</div>
+	</div>
+	<div class="dialogBG">
+		<div id="addItemContainer" class="dialog">
+			<div class="closeDialog"></div>
+			<h1>Edit Item</h1>
+			<form id="data" method="post" action="viewData.php">
+		  		<div class="leftAligned">
+		  			<input type="hidden" id="id" name="id" required>
+		  			<div class="inp">
+						<label for="shop">ID : </label>
+						<input type="text" id="id_disp" name="id_disp" required disabled>
+					</div> <br>
+			  		<div class="inp">
+						<label for="shop">Shop : </label>
+						<input type="text" id="shop" name="shop" required>
+					</div> <br>
+					<div class="inp">
+						<label for="category">Category : </label>
+						<input type="text" id="category" name="category" required>
+					</div> <br>
+					<div class="inp">
+						<label for="item">Item : </label>
+						<input type="text" id="item" name="item" required>
+					</div> <br>
+					<div class="inp">
+						<label for="qnty">Quantity : </label>
+						<input type="text" id="qnty" name="qnty" required>
+					</div> <br>
+					<div class="inp">
+						<label for="unit">Unit : </label>
+						<input type="text" id="unit" name="unit" required>
+					</div> <br>
+					<div class="inp">
+						<label for="price_based_on">Price based on : </label>
+						<select name="price_based_on" id="price_based_on">
+							<option value="Kilos">Kilos</option>
+							<option value="Packet">Packet</option>
+							<option value="Bottle">Bottle</option>
+							<option value="Box">Box</option>
+							<option value="Piece">Piece</option>
+						</select>
+					</div> <br>
+					<div class="inp">
+						<label for="mrp">MRP (₹) : </label>
+						<input type="text" id="mrp" name="mrp" required>
+					</div> <br>
+					<div class="inp">
+						<label for="sellers_price">Seller's Price (₹) : </label>
+						<input type="text" id="sellers_price" name="sellers_price" required>
+					</div> <br>
+					<div class="inp">
+						<label for="last_updated_on">Last Updated on : </label>
+						<input type="date" id="last_updated_on" name="last_updated_on" required>
+					</div>
+		  		</div>
+				<div class="inp">
+					<input id="update" class="dialogButton" type="button" name="update" value="Update">
+					<input type="button" class="dialogButton cancelButton" name="cancelEdit" value="Cancel" />
+				</div>
+				<div id="message"></div>
+	    	</form>
+		</div>
+	</div>
+	<div class="dialogBG">
+		<div id="searchDialog" class="dialog">
+			<div class="closeDialog"></div>
+			<form id="searchForm" name="searchForm" method="post" action="viewData.php">
+				<h1>Search Criteria</h1>
+				<div class="inp">
+					<label for="group">Search in : </label>
+					<select id="field" name="field">
+						<option value="id">ID</option>
+						<option value="shop">Shop</option>
+						<option value="item">Item</option>
+						<option value="qnty">Quantity+Unit</option>
+						<option value="price_based_on">Price Based On</option>
+						<option value="MRP">MRP</option>
+						<option value="sellers_price">Seller's Price</option>
+						<option value="last_updated_on">Last Updated On</option>
+					</select>
+				</div> <br>
+				<div class="inp" id="criteriaDiv">
+					<label for="criteria">Search For : </label>
+					<input type="text" id="criteria" name="criteria" required>
+				</div> <br>
+				<div class="inp" id="unitDiv">
+					<label for="unitCriteria">Unit : </label>
+					<input type="text" id="unitCriteria" name="unitCriteria" required>
+				</div> <br>
+				<div class="inp" id="dateDiv">
+					<label for="dateCriteria">Last Updated On : </label>
+					<input type="date" id="dateCriteria" name="dateCriteria" required>
+				</div> <br>
+				<input type="button" id="search" class="dialogButton" name="search" value="Search" />
+				<input type="button" class="dialogButton cancelButton" name="cancelSearch" value="Cancel" />
+			</form>
+		</div>
+	</div>
+</body>
+</html>

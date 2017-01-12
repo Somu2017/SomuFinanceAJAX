@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SomuFinance - Expenditure List</title>
+	<link rel="stylesheet" type="text/css" href="../../css/indexStyle.css">
+	<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+	<link rel="icon" href="../../favicon.ico" type="image/x-icon">
+	<script src="../../scripts/jquery-3.1.1.min.js"></script>
+	<script src="../../scripts/moment.js"></script>
+</head>
+<body>
+	<div id="billAddContainer">
+		<h1>Expenditure List</h1>
+		<div id="createMessage">
+			<p>
+				Expenditure List for the month of <span class="bold" id="expPeriod"></span> 
+			</p>
+		</div>
+		<table id="listDB">
+			<tr>
+				<th>Sl. No</th>
+				<th>Shop</th>
+				<th>Total Amount</th>
+				<th>Paid</th>
+				<th>Due</th>
+			</tr>
+		</table>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$.getJSON("showTotal?action=getDate", function(json){
+				$("#expPeriod").text(moment(json.billDate).format("MMMM YYYY"));
+			});
+
+			$.getJSON("showTotal?action=getData", function(json){
+				$.each(json.list, function() {
+					$.each(this.categories, function() {
+						var $tr = $('<tr>', {
+							class   : "catHead",
+						});
+						var $td = $('<td>', {
+							class   : "catHead",
+							colspan : 5,
+							text    : this.exp_category
+						});
+						$("#listDB").append($tr.append($td));
+
+						$.each(this.shops, function() {
+							var $tr = $('<tr>',{
+								class : "data"
+							});
+							
+							$td = $('<td>', {
+								text    : this.slNo
+							});$tr.append($td);
+							$td = $('<td>', {
+								text    : this.shop
+							});$tr.append($td);
+							$td = $('<td>', {
+								class 	: "rightAligned",
+								text    : "₹"+(this.shopTotalAmount).toFixed(2)
+							});$tr.append($td);
+							$td = $('<td>', {
+								class 	: "rightAligned",
+								text    : "₹"+(this.shopTotalPaid).toFixed(2)
+							});$tr.append($td);
+							$td = $('<td>', {
+								class 	: "rightAligned",
+								text    : "₹"+(this.shopTotalDue).toFixed(2)
+							});$tr.append($td);
+
+							$("#listDB").append($tr);
+						});
+
+						var $tr = $('<tr>', {
+							class   : "subTotal"
+						});
+						$td = $('<td>', {
+							class 	: "subTotal",
+							colspan : 2,
+							text    : "Sub-Total : "
+						});$tr.append($td);
+						$td = $('<td>', {
+							class 	: "rightAligned subTotal",
+							text    : "₹"+(this.categoryTotalAmount).toFixed(2)
+						});$tr.append($td);
+						$td = $('<td>', {
+							class 	: "rightAligned subTotal",
+							text    : "₹"+(this.categoryTotalPaid).toFixed(2)
+						});$tr.append($td);
+						$td = $('<td>', {
+							class 	: "rightAligned subTotal",
+							text    : "₹"+(this.categoryTotalDue).toFixed(2)
+						});$tr.append($td);
+						$("#listDB").append($tr.append($td));
+					});
+					var $tr = $('<tr>', {
+							class   : "total"
+						});
+						$td = $('<td>', {
+							class 	: "total",
+							colspan : 2,
+							text    : "Grand Total : "
+						});$tr.append($td);
+						$td = $('<td>', {
+							class 	: "rightAligned total",
+							text    : "₹"+(this.totalAmount).toFixed(2)
+						});$tr.append($td);
+						$td = $('<td>', {
+							class 	: "rightAligned total",
+							text    : "₹"+(this.totalPaid).toFixed(2)
+						});$tr.append($td);
+						$td = $('<td>', {
+							class 	: "rightAligned total",
+							text    : "₹"+(this.totalDue).toFixed(2)
+						});$tr.append($td);
+						$("#listDB").append($tr.append($td));
+				});
+			});
+		});
+	</script>
+</body>
+</html>

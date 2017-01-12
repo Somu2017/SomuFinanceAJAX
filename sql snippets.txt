@@ -1,0 +1,1 @@
+SELECT * FROM (SELECT monthlybillindex_jan17.exp_category, monthlybillindex_jan17.shop FROM monthlybillindex_jan17 WHERE monthlybillindex_jan17.exp_category IN (SELECT DISTINCT monthlybillindex_jan17.exp_category FROM monthlybillindex_jan17)) as t1 GROUP BY exp_category, shop

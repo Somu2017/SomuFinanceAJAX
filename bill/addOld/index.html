@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SomuFinance - Add Items to Bill</title>
+	<link rel="stylesheet" type="text/css" href="../../jquery-ui-1.12.1/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../css/indexStyle.css">
+	<script src="../../scripts/jquery-3.1.1.min.js"></script>
+	<script src="../../scripts/jquery.validate.min.js"></script>
+	<script src="../../jquery-ui-1.12.1/jquery-ui.min.js"></script>
+	<script src="../../scripts/moment.js"></script>
+	<script src="../../scripts/addToOldBill.js"></script>
+</head>
+<body>
+	<form id="list" method="post" action="addToBill.php">
+		<div id="container">
+			<h1>Add Items</h1>
+			<input type="button" class="button" name="back" id="back" value="&larr; Go Back to Bill" />
+			<select name="category_selector" id="category_selector">
+				<option value="All" selected>All</option>
+			</select>
+			<input type="button" class="button" name="add" id="add" value="Add Selected Items" />
+			<input type="button" class="button" name="edit" id="edit" value="Edit and Add" />
+			<input type="button" id="showSearch" class="button" name="search" value="Search" />
+			<input type="hidden" id="action" name="action">
+			<table id="listDB">
+				<tr>
+					<th>Select</th>
+					<th>ID</th>
+					<th>Sl. No</th>
+					<th>Item</th>
+					<th>Quantity</th>
+					<th>Unit</th>
+					<th>Price Based On</th>
+					<th>MRP</th>
+					<th>Seller's Price</th>
+					<th class="rightBorder">Last Updated On</th>
+					<th>Quantity Factor</th>
+					<th>Quantity</th>
+					<th>Unit</th>
+					<th>Price</th>
+				</tr>
+			</table>
+		</div>
+	</form>
+	
+	<div class="dialogBG">
+		<div id="insertMessage" class="dialog">
+			<div class="closeDialog"></div>
+			<p>Please enter all required fields.</p>
+		</div>
+	</div>
+
+	<div class="dialogBG">
+		<div id="editItemContainer" class="dialog">
+			<div class="closeDialog"></div>
+			<h1>Edit Item</h1>
+			<form id="data" method="post" action="addToBill.php">
+		  		<div>
+		  			<input type="hidden" id="id" name="id" required>
+		  			<div class="inp">
+						<label for="shop">ID : </label>
+						<input type="text" id="id_disp" name="id_disp" required disabled>
+					</div> <br>
+			  		<div class="inp">
+						<label for="shop">Shop : </label>
+						<input type="text" id="shop" name="shop" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="category">Category : </label>
+						<input type="text" id="category" name="category" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="item">Item : </label>
+						<input type="text" id="item" name="item" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="qnty">Quantity : </label>
+						<input type="text" id="qnty" name="qnty" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="unit">Unit : </label>
+						<input type="text" id="unit" name="unit" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="price_based_on">Price based on : </label>
+						<input type="text" id="price_based_on" name="price_based_on" readonly>
+					</div> <br>
+					<hr>
+					<div class="inp" class=".centerAligned">
+						<label for="editPrice">Edit Price and Date : </label>
+						<input type="checkbox" id="editPrice" value="editPrice" name="editPrice">
+					</div>
+					<hr>
+					<div class="inp">
+						<label for="mrp">MRP (₹) : </label>
+						<input type="text" id="mrp" name="mrp" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="sellers_price">Seller's Price (₹) : </label>
+						<input type="text" id="sellers_price" name="sellers_price" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="last_updated_on">Last Updated on : </label>
+						<input type="date" id="last_updated_on" name="last_updated_on" required readonly>
+					</div>
+					<hr>
+					<div class="inp">
+						<label for="qf">Quantity Factor : </label>
+						<input type="text" id="qf" name="qf" required>
+					</div> <br>
+					<div class="inp">
+						<label for="calQnty">Calculated Quantity : </label>
+						<input type="text" id="calQnty" name="calQnty" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="calUnit">Calculated Unit : </label>
+						<input type="text" id="calUnit" name="calUnit" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="calPrice">Calculated Price (₹) : </label>
+						<input type="text" id="calPrice" name="calPrice" required readonly>
+					</div> <br>
+		  		</div>
+				<div class="inp">
+					<input id="insertBill" class="dialogButton" type="button" name="insertBill" value="Insert Item to Bill">
+					<input type="button" id="cancelInsert" class="dialogButton" name="cancelInsert" value="Cancel" />
+				</div>
+	    	</form>
+	    	<div id="message"></div>
+		</div>
+	</div>
+
+	<div class="dialogBG">
+		<div id="searchDialog" class="dialog">
+			<div class="closeDialog"></div>
+			<form id="searchForm" name="searchForm" method="post" action="addToBill.php">
+				<h1>Search Criteria</h1>
+				<div class="inp">
+					<label for="group">Search in : </label>
+					<select id="field" name="field">
+						<option value="id">ID</option>
+						<option value="shop">Shop</option>
+						<option value="item">Item</option>
+						<option value="qnty">Quantity+Unit</option>
+						<option value="price_based_on">Price Based On</option>
+						<option value="MRP">MRP</option>
+						<option value="sellers_price">Seller's Price</option>
+						<option value="last_updated_on">Last Updated On</option>
+					</select>
+				</div> <br>
+				<div class="inp" id="criteriaDiv">
+					<label for="criteria">Search For : </label>
+					<input type="text" id="criteria" name="criteria" required>
+				</div> <br>
+				<div class="inp" id="unitDiv">
+					<label for="unitCriteria">Unit : </label>
+					<input type="text" id="unitCriteria" name="unitCriteria" required>
+				</div> <br>
+				<div class="inp" id="dateDiv">
+					<label for="dateCriteria">Last Updated On : </label>
+					<input type="date" id="dateCriteria" name="dateCriteria" required>
+				</div> <br>
+				<input type="button" id="search" class="dialogButton" name="search" value="Search" />
+				<input type="button" class="dialogButton cancelButton" name="cancelSearch" value="Cancel" />
+			</form>
+		</div>
+	</div>
+</body>
+</html>

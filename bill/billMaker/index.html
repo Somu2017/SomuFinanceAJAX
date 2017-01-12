@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SomuFinance - Add Items to Bill</title>
+	<link rel="stylesheet" type="text/css" href="../../jquery-ui-1.12.1/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="../../css/indexStyle.css">
+	<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+	<link rel="icon" href="../../favicon.ico" type="image/x-icon">
+	<script src="../../scripts/jquery-3.1.1.min.js"></script>
+	<script src="../../scripts/jquery.validate.min.js"></script>
+	<script src="../../jquery-ui-1.12.1/jquery-ui.min.js"></script>
+	<script src="../../scripts/moment.js"></script>
+	<script src="../../scripts/billMaker.js"></script>
+</head>
+<body>
+	<div id="billAddContainer">
+		<h1>Add Item to Bill</h1>
+		<div id="createMessage">
+			<p>
+				Adding billing details for <span id="spanExpCat" class="bold"></span> purchase(s) at  <span id="spanShop" class="bold"></span> on 
+				<span id="spanDate" class="bold"></span> paid using <span id="spanMOP" class="bold"></span> <span id="spanAcc"></span> 
+			</p>
+		</div>
+		<form id="billAdd" method="post" action="../add/addToBill.php">
+			<input type="button" class="button" name="add" id="add" value="Add Items" />
+			<input type="button" class="button" name="edit" id="edit" value="Edit" />
+			<input type="button" class="button" name="delete" value="Delete" />
+			<input type="hidden" id="action" name="action">
+			<input type="hidden" id="shopName" name="shopName">
+			<table id="listDB">
+				<tr>
+					<th>Select</th>
+					<th>ID</th>
+					<th>Sl. No</th>
+					<th>Item</th>
+					<th>Quantity</th>
+					<th>Unit</th>
+					<th class="rightBorder">Price Based On</th>
+					<th>Quantity Factor</th>
+					<th>Quantity</th>
+					<th>Unit</th>
+					<th>Price</th>
+				</tr>
+			</table>
+		</form>
+		<div id="statement">
+			<form id="billAmount" method="post" action="dataLoader">
+				<div class="inp">
+					<label for="total_amount">Total Amount : ₹</label>
+					<input type="text" id="total_amount" name="total_amount" value="0.00" class="hiddenTextBox rightAligned" required readonly>
+				</div> <br>
+				<div class="inp">
+					<label for="paid">Paid : ₹</label>
+					<input type="text" class="paid" id="paid" name="paid" value="0.00" class="rightAligned" required>
+				</div> <br>
+				<div class="inp">
+					<label for="due">Due : ₹</label>
+					<input type="text" id="due" name="due" value="0.00" class="hiddenTextBox rightAligned" required readonly>
+				</div> <br>
+				<div class="inp">
+					<input id="updateAmounts" class="dialogButton" type="button" name="updateAmounts" value="Update Bill Amount">
+				</div>
+			</form>
+			<div id="billMessage"></div>
+		</div>
+	</div>
+	<div class="dialogBG">
+		<div id="deleteConfirmDialog" class="dialog">
+			<div class="closeDialog"></div>
+			<p>Sure you want to delete the selected Data?</p>
+			<input type="button" id="confirmDelete" class="dialogButton" name="confirmDelete" value="Delete" />
+			<input type="button" class="dialogButton cancelButton" name="cancelDelete" value="Cancel" />
+		</div>
+	</div>
+	<div class="dialogBG">
+		<div id="editItemContainer" class="dialog">
+			<div class="closeDialog"></div>
+			<h1>Edit Item</h1>
+			<form id="data" method="post" action="dataLoader.php">
+		  		<div>
+		  			<input type="hidden" id="id" name="id" required>
+		  			<div class="inp">
+						<label for="shop">ID : </label>
+						<input type="text" id="id_disp" name="id_disp" required disabled>
+					</div> <br>
+			  		<div class="inp">
+						<label for="shop">Shop : </label>
+						<input type="text" id="shop" name="shop" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="category">Category : </label>
+						<input type="text" id="category" name="category" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="item">Item : </label>
+						<input type="text" id="item" name="item" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="qnty">Quantity : </label>
+						<input type="text" id="qnty" name="qnty" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="unit">Unit : </label>
+						<input type="text" id="unit" name="unit" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="price_based_on">Price based on : </label>
+						<input type="text" id="price_based_on" name="price_based_on" readonly>
+					</div> <br>
+					<hr>
+					<div class="inp" class=".centerAligned">
+						<label for="editPrice">Edit Price and Date : </label>
+						<input type="checkbox" id="editPrice" value="editPrice" name="editPrice">
+					</div>
+					<hr>
+					<div class="inp">
+						<label for="mrp">MRP (₹) : </label>
+						<input type="text" id="mrp" name="mrp" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="sellers_price">Seller's Price (₹) : </label>
+						<input type="text" id="sellers_price" name="sellers_price" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="last_updated_on">Last Updated on : </label>
+						<input type="date" id="last_updated_on" name="last_updated_on" required readonly>
+					</div>
+					<hr>
+					<div class="inp">
+						<label for="qf">Quantity Factor : </label>
+						<input type="text" id="qf" name="qf" required>
+					</div> <br>
+					<div class="inp">
+						<label for="calQnty">Calculated Quantity : </label>
+						<input type="text" id="calQnty" name="calQnty" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="calUnit">Calculated Unit : </label>
+						<input type="text" id="calUnit" name="calUnit" required readonly>
+					</div> <br>
+					<div class="inp">
+						<label for="calPrice">Calculated Price (₹) : </label>
+						<input type="text" id="calPrice" name="calPrice" required readonly>
+					</div> <br>
+		  		</div>
+				<div class="inp">
+					<input id="insertBill" class="dialogButton" type="button" name="insertBill" value="Insert Item to Bill">
+					<input type="button" id="cancelInsert" class="dialogButton cancelButton" name="cancelInsert" value="Cancel" />
+				</div>
+	    	</form>
+	    	<div id="message"></div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+﻿$("#date").datepicker({
+  changeMonth: false,
+  changeYear: false,
+  dateFormat: 'dd/mm/yy',
+  duration: 'fast'
+}).focus(function() {
+  $(".ui-datepicker-prev, .ui-datepicker-next").remove();
+});​
